@@ -1,6 +1,7 @@
 # DSCI551-web-app
 
 Run program: python manage.py runserver
+
 Open ‘localhost:8000/dsci551/‘ to see the web app
 
 To-do:
