@@ -9,3 +9,10 @@ To-do:
 2) dsci551_index.html: Import table, read query, display result
 3) Link search page to main page (link jump)
 4) Search page: add result box
+
+
+quick ref:
+1)connect mysql to django
+modify settings.py -> database
+python3 manage.py inspectdb (check conenction)
+python3 manage.py inspectdb > blog/models.py (import models to models.py)
