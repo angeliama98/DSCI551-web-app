@@ -12,7 +12,11 @@ To-do:
 
 
 quick ref:
+
 1)connect mysql to django
+
 modify settings.py -> database
+
 python3 manage.py inspectdb (check conenction)
+
 python3 manage.py inspectdb > blog/models.py (import models to models.py)
