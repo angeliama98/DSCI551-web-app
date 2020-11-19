@@ -18,6 +18,13 @@
         <input type="search" class="form-control" id="input" placeholder="Enter Keyword Here">
     </div>
 </div>
+
+<h1 font size=10 style="text-align:center;">Reviews</h1>
+   {% for review in first_reviews %}
+      <small>{{ review.author }}</small>
+      <small>{{ review.content }}</small>
+   {% endfor %}
+
 {% endblock %}
    
 
