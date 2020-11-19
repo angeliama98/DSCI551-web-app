@@ -18,3 +18,6 @@ def dsci551_detail(request, pk):
 
 def dsci551(request):
     return render(request, 'dsci551.html', {})
+
+def search(request):
+    return render(request, 'dsci551_search.html', {})
