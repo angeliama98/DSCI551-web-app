@@ -19,7 +19,7 @@ modify settings.py -> database
 
 python3 manage.py inspectdb (check conenction)
 
-python3 manage.py inspectdb > blog/models.py (import models to models.py)
+python3 manage.py inspectdb > dsci551/models.py (import models to models.py)
 
 2)connect firebase to django
 
