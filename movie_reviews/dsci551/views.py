@@ -59,3 +59,27 @@ def search(request):
     }
     return render(request, 'dsci551_search.html', context)
 
+def home(request):
+    if request.method == 'POST':
+        # 'genre_selection'：the name in this <select name="genre_selection">
+        genre_selected = int(request.POST.get('genre_selection'))
+        movie_info = []
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT m.title, m.popularity "
+                           "FROM genres_in_movies g, movies m "
+                           "WHERE g.genres_id = %s AND g.movie_id=m.id "
+                           "limit 10", [genre_selected])
+            movie_info = cursor.fetchall()
+        genre_list = Genres.objects.all()
+        context = {
+            'genre_list': genre_list,
+            'genre_selected': genre_selected,
+            'movie_info': movie_info
+        }
+        return render(request, 'home.html', context)
+
+    genre_list = Genres.objects.all()
+    context = {
+        'genre_list': genre_list
+    }
+    return render(request, 'home.html', context)

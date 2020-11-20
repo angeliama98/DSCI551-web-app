@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+
+<h2>Home</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    <select name=genre_selection>
+        <option value="Select Genre">Select Genre</option>
+        {% for genre in genre_list %}
+            {%  if genre.id == genre_selected %}
+                <option value={{ genre.id }} selected="selected">{{ genre.name }}</option>
+            {% else %}
+                <option value={{ genre.id }}>{{ genre.name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <input type="submit" name="btnsubmit" value="Submit" />
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Movie Name</th>
+            <th scope="col">22</th>
+            <th scope="col">33</th>
+            <th scope="col">Popularity</th>
+        </tr>
+    </thead>
+    {% for movie, pop in movie_info %}
+        <thead>
+            <tr>
+                <th scope="col">{{movie}}</th>
+                <th scope="col">22</th>
+                <th scope="col">33</th>
+                <th scope="col">{{pop}}</th>
+            </tr>
+        </thead>    
+    {% endfor %}
+</table>
+
+{% endblock %}
