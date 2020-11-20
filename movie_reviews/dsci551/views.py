@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from dsci551.models import Dsci551
 import pyrebase
-from pyspark.sql import SparkSession
+#from pyspark.sql import SparkSession
+from .models import Movies
 
-spark = SparkSession \
-    .builder \
-    .appName("q1") \
-    .config("spark.some.config.option", "some-value") \
-    .getOrCreate()
+#spark = SparkSession \
+    #.builder \
+    #.appName("q1") \
+    #.config("spark.some.config.option", "some-value") \
+    #.getOrCreate()
 
-ids = spark.read.option("header","true").csv('movies_id.csv')
+#ids = spark.read.option("header","true").csv('movies_id.csv')
 
 
 config = {
@@ -44,14 +45,17 @@ def search(request):
     query = request.GET.get('input')
     if(query == None):
         query = "Star+Wars"
-    newColumns = ["id", "title"]
-    ids.toDF(*newColumns)
+    #newColumns = ["id", "title"]
+
+    #ids.toDF(*newColumns)
 
     query = query.replace('+', ' ')
-    answer = ids[ids['title'] == query]
-    answer = answer.first()[0]
+    moviesID = Movies.objects.filter(title=query)
+    answer = moviesID[0].id
+    #answer = answer.first()[0]
     first_reviews = db.child("movie_reviews").child(answer).get().val()
     context = {
         "first_reviews": first_reviews
     }
     return render(request, 'dsci551_search.html', context)
+
