@@ -53,12 +53,19 @@
       </tr>
     </thead>
     <tbody>
+          {% if first_reviews is None %}
+          <tr>
+            <td> No author have found </td>
+            <td> No reviews have found, try another one!</td>
+          </tr>
+          {% else %}
           {% for review in first_reviews %}
           <tr>
             <td>{{ review.author }}</td>
             <td>{{ review.content}}</td>
           </tr>
           {% endfor %}
+          {% endif %}
     </tbody>
   </table>
 
