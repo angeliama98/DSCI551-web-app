@@ -1,6 +1,16 @@
 from django.shortcuts import render
 from dsci551.models import Dsci551
 import pyrebase
+from pyspark.sql import SparkSession
+
+spark = SparkSession \
+    .builder \
+    .appName("q1") \
+    .config("spark.some.config.option", "some-value") \
+    .getOrCreate()
+
+ids = spark.read.option("header","true").csv('movies_id.csv')
+
 
 config = {
     'apiKey': "AIzaSyD-cFEFVd5wfcXc4AD6hCRiuf1id39yJpg",
@@ -11,9 +21,8 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
-first_reviews = db.child("movie_reviews").child("11").get().val()
-
 # Create your views here.
+
 def dsci551_index(request):
     dsci551 = Dsci551.objects.all()
     context = {
@@ -32,6 +41,16 @@ def dsci551(request):
     return render(request, 'dsci551.html', {})
 
 def search(request):
+    query = request.GET.get('input')
+    if(query == None):
+        query = "Star+Wars"
+    newColumns = ["id", "title"]
+    ids.toDF(*newColumns)
+
+    query = query.replace('+', ' ')
+    answer = ids[ids['title'] == query]
+    answer = answer.first()[0]
+    first_reviews = db.child("movie_reviews").child(answer).get().val()
     context = {
         "first_reviews": first_reviews
     }
