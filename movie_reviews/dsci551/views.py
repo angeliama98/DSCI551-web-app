@@ -65,10 +65,12 @@ def home(request):
         genre_selected = int(request.POST.get('genre_selection'))
         movie_info = []
         with connection.cursor() as cursor:
-            cursor.execute("SELECT m.title, m.popularity "
-                           "FROM genres_in_movies g, movies m "
-                           "WHERE g.genres_id = %s AND g.movie_id=m.id "
-                           "limit 10", [genre_selected])
+            cursor.execute("SELECT m.title, m.popularity, m.budget, p.name "
+                           "FROM genres_in_movies g, movies m, crew_in_movies c, people p "
+                           "WHERE g.genres_id = %s AND g.movie_id=m.id AND "
+                           "m.id = c.movie_id AND p.id=c.person_id "
+                           "AND job='Director' "
+                           "ORDER BY m.popularity DESC", [genre_selected])
             movie_info = cursor.fetchall()
         genre_list = Genres.objects.all()
         context = {

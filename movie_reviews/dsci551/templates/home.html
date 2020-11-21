@@ -3,7 +3,7 @@
 
 {% block page_content %}
 
-<h2>Home</h2>
+<br>
 <form action="" method="post">
     {% csrf_token %}
     <select name=genre_selection>
@@ -19,25 +19,29 @@
     <input type="submit" name="btnsubmit" value="Submit" />
 </form>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Movie Name</th>
-            <th scope="col">22</th>
-            <th scope="col">33</th>
-            <th scope="col">Popularity</th>
-        </tr>
-    </thead>
-    {% for movie, pop in movie_info %}
+<div class="row pre-scrollable">
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th scope="col">{{movie}}</th>
-                <th scope="col">22</th>
-                <th scope="col">33</th>
-                <th scope="col">{{pop}}</th>
+                <th scope="col">Movie Name</th>
+                <th scope="col">Director</th>
+                <th scope="col">Budget(Million)</th>
+                <th scope="col">Popularity</th>
             </tr>
-        </thead>    
-    {% endfor %}
-</table>
+        </thead>
+        {% for movie, pop, budget, director in movie_info %}
+            <thead>
+                <tr>
+                    <td scope="col">{{movie}}</td>
+                    <td scope="col">{{director}}</td>
+                    <td scope="col">{%  widthratio budget 1000000 1 %}</td>
+                    <td scope="col">{{pop}}</td>
+                </tr>
+            </thead>    
+        {% endfor %}
+    </table>
+</div>
+
+
 
 {% endblock %}
